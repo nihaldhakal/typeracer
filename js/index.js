@@ -1,5 +1,5 @@
 var countCharacters=0;
-var startTime=new Date($.now());
+var startTime;
 var userKeyPressCount=0;
 
 $(document).ready(function () {
@@ -10,6 +10,10 @@ $(document).ready(function () {
         $('#userInput').val("");
     });
     $("#userInput").on("input",function(event){
+        if (startTime === undefined) {
+            startTime = new Date($.now());
+        }
+
         var modifierKeyKeyCodes = [16,17,18,20,27,37,38,39,40,46];
         if (modifierKeyKeyCodes.includes(event.keyCode) == false) {
             userKeyPressCount++;
@@ -47,21 +51,17 @@ function updateWPM(){
 function giveColorFeedback(){
     var displayedText = $('#displayedText').text();
     var userInput = $('#userInput').val();
+    var currentCharIndex = userInput.length - 1;
 
-    // check to see what is match length between displayedText and userInput
-    // green-ify the match
-    // red-ify the unmatch
-    // if (displayedText.includes(userInput)) {
-    //     $('#displayedText').css({ background: "#ccc", color: "green" });
-    // } else {
-    //     $('#displayedText').css({ background: "#cc1c1f", color: "red" });
-    // }
-    $('#displayedText').each(function () {
-        if (displayedText.includes(userInput))
-            $("#displayedText").addClass("match");
-        else
-            $("#displayedText").addClass("unmatch");
-    });
+    for(var i = currentCharIndex; i < displayedText.length - 1 ; i++){
+        $("span #" + i).removeClass("match").removeClass("unmatch");
+    }
+
+    if (userInput[currentCharIndex] === displayedText[currentCharIndex]){
+        $("span #" + currentCharIndex).addClass("match").removeClass("unmatch");
+    } else {
+        $("span #" + currentCharIndex).removeClass("match").addClass("unmatch");
+    }
 }
 
 function isGameOver(){

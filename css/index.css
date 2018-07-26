@@ -3,9 +3,9 @@
 }
 
 .match{
-    color: green ;
+    background: lawngreen;
 }
 
 .unmatch{
-    color: red;
+    background: lightcoral;
 }

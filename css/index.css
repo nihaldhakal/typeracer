@@ -1,0 +1,11 @@
+#showAccuracy.hidden {
+    display: none;
+}
+
+.match{
+    color: green ;
+}
+
+.unmatch{
+    color: red;
+}

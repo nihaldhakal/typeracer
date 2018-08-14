@@ -20,6 +20,7 @@ $(document).ready(function () {
         }
 
         updateWPM();
+        updateProgressBar();
         giveColorFeedback();
         if (isGameOver() == true){
             handleGameOver();
@@ -28,8 +29,9 @@ $(document).ready(function () {
 });
 
 function displayRandomText() {
-    var randomIndex = Math.floor(Math.random()*quotes.length);
-    var randomText = quotes[randomIndex];
+    var randomText=$("#displayedText").text();
+    // var randomIndex = Math.floor(Math.random()*quotes.length);
+    // var randomText = quotes[randomIndex];
     var randomTextCharArray = randomText.split("");
     for(var spanCount=0; spanCount < randomTextCharArray.length; spanCount++) {
         randomTextCharArray[spanCount] = '<span id= "'+spanCount +'">' + randomTextCharArray[spanCount] + '</span>';
@@ -48,6 +50,7 @@ function updateWPM(){
     wpm = parseInt(wpm,10);
     $('#checkWpm').text(wpm);
 }
+
 function giveColorFeedback(){
     var displayedText = $('#displayedText').text();
     var userInput = $('#userInput').val();
@@ -85,6 +88,27 @@ function disableInput() {
     $('#userInput').prop('disabled', true);
 }
 
+
+function updateProgressBar(){
+    var percentage = 3 + getProgress();
+    var progressBarSelector = $("#newBar");
+    var progressBar = $(progressBarSelector);
+    var displayedText = $('#displayedText').text();
+    var userInput = $('#userInput').val();
+    var currentCharIndex = userInput.length - 1;
+    for(var i = currentCharIndex; i <= displayedText.length - 1 ; i++) {
+        if (userInput[currentCharIndex] === displayedText[currentCharIndex]) {
+            $(progressBar).css("width", percentage + "%" );
+            // $("#newBar").animate({left: "+=500"}, 2000);
+        }
+    }
+}
+
+function getProgress(){
+    var userInputLength = $("#userInput").val().length;
+    var quoteLength = $("#displayedText").text().length;
+    return ((userInputLength / quoteLength) * 100);
+}
 var quotes = ["Hello there", "Genius is one percent inspiration and ninety-nine percent perspiration.", "You can observe a lot just by watching.","A house divided against itself cannot stand.",
     "Difficulties increase the nearer we get to the goal.","Fate is in your hands and no one elses",
     "Be the chief but never the lord.","Nothing happens unless first we dream.","Well begun is half done.", "Life is a learning experience, only if you learn."

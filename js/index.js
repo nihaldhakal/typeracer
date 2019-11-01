@@ -30,8 +30,8 @@ $(document).ready(function () {
 
 function displayRandomText() {
     var randomText=$("#displayedText").text();
-    // var randomIndex = Math.floor(Math.random()*quotes.length);
-    // var randomText = quotes[randomIndex];
+    var randomIndex = Math.floor(Math.random()*quotes.length);
+    var randomText = quotes[randomIndex];
     var randomTextCharArray = randomText.split("");
     for(var spanCount=0; spanCount < randomTextCharArray.length; spanCount++) {
         randomTextCharArray[spanCount] = '<span id= "'+spanCount +'">' + randomTextCharArray[spanCount] + '</span>';
